@@ -16,10 +16,16 @@ namespace WTWPolicies.Controllers
         }
 
 
-        //TODO add methods to get/create/update/delete data from _repository
+        [HttpGet]
         public JsonResult Get()
         {
             return Json(_policyRepository.Get());
+        }
+
+        [HttpDelete]
+        public void Delete(int id)
+        {
+            _policyRepository.Remove(id);
         }
     }
 }

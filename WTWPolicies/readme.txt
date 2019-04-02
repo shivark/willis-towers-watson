@@ -18,7 +18,7 @@ Each policy has the following structure and data classes are already provided:
 
 Requirements:
 
-1. A website is required that will display all policies from the repository.
+1. A website is required that will show all policies from the repository.
 2. It should be possible to do CRUD operations on Policies.
 3. It is up to you how you design the website and CRUD operations.
 4. You may use existing CSS/frameworks to create a professional looking front end.

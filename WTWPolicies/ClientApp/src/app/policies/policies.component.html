@@ -1,0 +1,22 @@
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Policy holder name</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let policy of policies | async">
+      <td>{{policy.policyNumber}}</td>
+      <td>{{policy.policyHolder.name}}</td>
+      <td>{{policy.policyHolder.age}}</td>
+      <td>{{gender[policy.policyHolder.gender]}}</td>
+      <td>
+        <button>Edit</button>
+        <button (click)="deleteClicked(policy.policyNumber)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>
