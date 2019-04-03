@@ -10,12 +10,20 @@ import { PoliciesComponent } from './policies/policies.component';
 import { AddComponent } from './add/add.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap';
-import { ModalContentComponent } from './modal-content/modal-content.component';
-import { DemoModalServiceStaticComponent } from './demo-modal-service-static/demo-modal-service-static.component';
+import { DeleteConfirmationModalComponent } from './delete-confirmation-modal/delete-confirmation-modal.component';
+import { DeletePolicyComponent } from './delete-policy/delete-policy.component';
 
 
 @NgModule({
-  declarations: [AppComponent, AppHeaderComponent, AppFooterComponent, PoliciesComponent, AddComponent, ModalContentComponent, DemoModalServiceStaticComponent],
+  declarations: [
+    AppComponent,
+    AppHeaderComponent,
+    AppFooterComponent,
+    PoliciesComponent,
+    AddComponent,
+    DeleteConfirmationModalComponent,
+    DeletePolicyComponent],
+    
   imports: [
     ModalModule.forRoot(),
     HttpClientModule,
@@ -24,7 +32,6 @@ import { DemoModalServiceStaticComponent } from './demo-modal-service-static/dem
     ReactiveFormsModule
   ],
   providers: [],
-  entryComponents: [ModalContentComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

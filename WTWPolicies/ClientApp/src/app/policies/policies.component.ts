@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { PoliciesService } from './policies.service';
+import { PolicyService } from './policy.service';
 import { Policy } from 'src/models/policy';
 import { Gender } from 'src/models/gender';
 
@@ -15,12 +15,10 @@ export class PoliciesComponent implements OnInit {
   policies: Policy[];
   private policyIdToDelete: number;
 
-  constructor(private policiesService: PoliciesService) { }
+  constructor(private policy: PolicyService) { }
 
   ngOnInit() {
-    this.policiesService
-      .getAll()
-      .subscribe(p => this.policies = p);
+    this.getPolicies();
   }
 
   deleteClicked(id: number) {
@@ -30,12 +28,19 @@ export class PoliciesComponent implements OnInit {
 
   deleteConfirmed() {
     this.displayDeleteDialogBox = false;
-    this.policiesService
+
+    this.policy
       .delete(this.policyIdToDelete)
       .subscribe(() => this.deleteFromView(this.policies, this.policyIdToDelete));
   }
 
   private deleteFromView(arr: Policy[], id: number) {
     arr.splice(arr.findIndex((p: Policy) => p.policyNumber === id), 1);
+  }
+
+  private getPolicies() {
+    this.policy
+      .getAll()
+      .subscribe(p => this.policies = p);
   }
 }

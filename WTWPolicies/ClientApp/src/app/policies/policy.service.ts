@@ -9,7 +9,7 @@ import { Gender } from 'src/models/gender';
 @Injectable({
   providedIn: 'root'
 })
-export class PoliciesService {
+export class PolicyService {
   private apiUrl: string = '/api/policies/';
 
   constructor(private http: HttpClient) { }

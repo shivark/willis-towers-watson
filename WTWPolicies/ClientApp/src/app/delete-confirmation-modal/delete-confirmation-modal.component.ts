@@ -2,10 +2,10 @@ import { Component, ViewChild, Input, OnChanges, Output, EventEmitter } from '@a
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
-  selector: 'demo-modal-service-static',
-  templateUrl: './demo-modal-service-static.component.html'
+  selector: 'delete-confirmation-modal',
+  templateUrl: './delete-confirmation-modal.component.html'
 })
-export class DemoModalServiceStaticComponent implements OnChanges {
+export class DeleteConfirmationModalComponent implements OnChanges {
   modalRef: BsModalRef;
   @ViewChild('template') temp;
   @Input() display: boolean;

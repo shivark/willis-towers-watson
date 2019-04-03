@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-delete-policy',
+  selector: 'delete-policy',
   templateUrl: './delete-policy.component.html',
   styleUrls: ['./delete-policy.component.scss']
 })
-export class DeletePolicyComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class DeletePolicyComponent {
+  @Input() policyNumber: number;
 }

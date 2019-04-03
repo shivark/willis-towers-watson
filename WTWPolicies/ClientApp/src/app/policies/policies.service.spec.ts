@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PoliciesService } from './policies.service';
+import { PolicyService } from './policy.service';
 import { HttpClient } from '@angular/common/http';
 
 describe('PoliciesService', () => {
@@ -11,14 +11,14 @@ describe('PoliciesService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        PoliciesService,
+        PolicyService,
         { provide: HttpClient, useValue: spyHttpClient }
       ]
     });
   });
 
   it('should be created', () => {
-    const service: PoliciesService = TestBed.get(PoliciesService);
+    const service: PolicyService = TestBed.get(PolicyService);
     expect(service).toBeTruthy();
   });
 });

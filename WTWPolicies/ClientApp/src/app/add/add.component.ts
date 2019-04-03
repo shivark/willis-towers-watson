@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { PoliciesService } from '../policies/policies.service';
+import { PolicyService } from '../policies/policy.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Policy } from 'src/models/policy';
@@ -18,7 +18,7 @@ export class AddComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private policyService: PoliciesService,
+    private policyService: PolicyService,
     private route: ActivatedRoute,
     private router: Router) { }
 
