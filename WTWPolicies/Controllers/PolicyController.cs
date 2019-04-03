@@ -1,7 +1,6 @@
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using WTWPolicies.Data;
+
 
 namespace WTWPolicies.Controllers
 {
@@ -17,15 +16,42 @@ namespace WTWPolicies.Controllers
 
 
         [HttpGet]
-        public JsonResult Get()
+        public ActionResult Get()
         {
-            return Json(_policyRepository.Get());
+            var model = _policyRepository.Get();
+            return Ok(model);
         }
 
-        [HttpDelete]
-        public void Delete(int id)
+        [HttpGet("{id}")]
+        public ActionResult GetById(int id)
+        {
+            var model = _policyRepository.GetById(id);
+            return Ok(model);
+        }
+
+        [HttpPost]
+        public ActionResult<Policy> Create(Policy policy)
+        {
+            var p = new Policy()
+            {
+                PolicyNumber = 0,
+                PolicyHolder = new PolicyHolder()
+                {
+                    Name = "Shiva",
+                    Age = 10,
+                    Gender = Gender.Male
+                }
+
+            };
+            _policyRepository.Add(policy);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
         {
             _policyRepository.Remove(id);
+            return Ok();
         }
     }
 }

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PoliciesService } from './policies.service';
-import { Observable } from 'rxjs';
 import { Policy } from 'src/models/policy';
 import { Gender } from 'src/models/gender';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-policies',
@@ -12,24 +10,23 @@ import { tap } from 'rxjs/operators';
 })
 export class PoliciesComponent implements OnInit {
   gender = Gender;
-  policies: Observable<Policy[]>;
-
+  policies: Policy[];
 
   constructor(private policiesService: PoliciesService) { }
 
   ngOnInit() {
-    this.policies = this.policiesService.get();
+    this.policiesService
+      .getAll()
+      .subscribe(p => this.policies = p);
   }
 
   deleteClicked(id: number) {
-    console.log('hello');
     this.policiesService
       .delete(id)
-      .subscribe();
+      .subscribe(() => this.deleteFrom(this.policies, id));
   }
 
-  deleteFrom(arr: Policy[], id: number) {
-    let index = arr.findIndex((x: Policy) => x.policyNumber === id);
-    arr.splice(index, 1);
+  private deleteFrom(arr: Policy[], id: number) {
+    arr.splice(arr.findIndex((p: Policy) => p.policyNumber === id), 1);
   }
 }

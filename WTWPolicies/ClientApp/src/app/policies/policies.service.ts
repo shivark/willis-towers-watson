@@ -1,52 +1,89 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Policy } from 'src/models/policy';
-import { catchError, tap, map } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { Gender } from 'src/models/gender';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PoliciesService {
+  private apiUrl: string = '/api/policies/';
 
   constructor(private http: HttpClient) { }
 
-  get(): Observable<Policy[]> {
+  getAll(): Observable<Policy[]> {
     return this.http
-      .get<Policy[]>('/api/policies/')
+      .get<Policy[]>(this.apiUrl)
       .pipe(
-        //tap(res => console.log(res)),
-        catchError(this.handleError<Policy[]>('getHeroes', [])))
+        tap(res => console.log("response", res)),
+        catchError(this.handleError))
+  }
+
+  getById(id: number): Observable<Policy> {
+    return this.http
+      .get<Policy>(`${this.apiUrl}${id}`)
+      .pipe(
+        tap(res => console.log("response", res)),
+        catchError(this.handleError))
   }
 
 
-  delete(policyId: Policy | number): Observable<Policy> {
+  delete(policyId: Policy | number): Observable<{}> {
     const id = typeof policyId === 'number' ? policyId : policyId.policyNumber;
-    const url = `/api/policies/${id}`;
 
-    return this.http.delete<Policy>(url).pipe(
-      tap(_ => this.log(`deleted hero id=${id}`)),
-      catchError(this.handleError<Policy>('deletePolicy'))
+    return this.http.delete<Policy>(`${this.apiUrl}${id}`).pipe(
+      tap(() => console.log(`deleted hero id=${id}`)),
+      catchError(this.handleError)
     );
   }
 
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      //  this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
+  post(policy: Policy): Observable<Policy> {
+    let p: Policy = {
+      policyNumber: 123,
+      policyHolder: {
+        age: 24,
+        name: 'Pashmi',
+        gender: Gender.female
+      }
     };
+
+    return this.http.post<Policy>(this.apiUrl, p)
+      .pipe(
+        tap(data => console.log('create Policy: ' + JSON.stringify(data))),
+        catchError(this.handleError)
+      );
   }
 
-  private log(message: string) {
-    // loggerService
-    //this.messageService.add(`HeroService: ${message}`);
+  update(policy: Policy): Observable<Policy> {
+    console.log('update is called');
+    let p: Policy = {
+      policyNumber: 123,
+      policyHolder: {
+        age: 24,
+        name: 'Pashmi',
+        gender: Gender.female
+      }
+    };
+
+    return this.http.put<Policy>(this.apiUrl, p)
+      .pipe(
+        tap(data => console.log('create Policy: ' + JSON.stringify(data))),
+        catchError(this.handleError)
+      );
+  }
+
+
+  private handleError(err) {
+    let errorMessage: string;
+    if (err.error instanceof ErrorEvent) {
+      errorMessage = `An error occurred: ${err.error.message}`;
+    } else {
+      errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
+    }
+    console.error(err);
+    return throwError(errorMessage);
   }
 }

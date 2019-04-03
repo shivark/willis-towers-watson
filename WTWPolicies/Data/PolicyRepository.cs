@@ -54,6 +54,10 @@ namespace WTWPolicies.Data
             return _policies;
         }
 
+        public Policy GetById(int id) { 
+            return _policies.SingleOrDefault(p => p.PolicyNumber == id);
+        }
+
         public void Add(Policy policy)
         {
             _policies.Add(policy);
