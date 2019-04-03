@@ -15,9 +15,13 @@
       <td>{{policy.policyHolder.age}}</td>
       <td>{{gender[policy.policyHolder.gender]}}</td>
       <td>
-        <button>Edit</button>
-        <button (click)="deleteClicked(policy.policyNumber)">Delete</button></td>
+        <button type="button" class="btn btn-xs btn-success">Edit</button>
+        <button type="button" class="btn btn-xs btn-danger" (click)="deleteClicked(policy.policyNumber)">Delete</button>
+      </td>
     </tr>
   </tbody>
 </table>
 <a class="btn btn-primary" href="/add" role="button">Add new policy</a>
+
+<demo-modal-service-static (confirmed)="deleteConfirmed($event)" [display]="displayDeleteDialogBox">
+</demo-modal-service-static>

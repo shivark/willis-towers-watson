@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
-  selector: 'app-modal-content',
+  selector: 'modal-content',
   templateUrl: './modal-content.component.html',
-  styleUrls: ['./modal-content.component.scss']
 })
-export class ModalContentComponent implements OnInit {
 
-  constructor() { }
+export class ModalContentComponent {
+  title: string;
+  closeBtnName: string;
+  policyNumber: number;
 
-  ngOnInit() {
-  }
+  constructor(public bsModalRef: BsModalRef) { }
 
 }
