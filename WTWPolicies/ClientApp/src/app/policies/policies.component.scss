@@ -1,0 +1,21 @@
+table{
+    th{
+        border-top: 0;
+        border-bottom: 1px;
+    }
+}
+
+a.btn{
+    cursor: pointer;
+    display: inline-block;
+    height: 20px;
+    background-repeat: no-repeat;
+}
+.delete-btn{
+    background-image: url('./images/delete-btn.svg');
+    width: 20px;
+}
+
+.edit-btn{
+    background-image: url('./images/edit-btn.svg');
+}

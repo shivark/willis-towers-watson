@@ -3,33 +3,33 @@ import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from "./app.component";
-import { AppHeaderComponent } from './app-header/app-header.component';
-import { AppFooterComponent } from './app-footer/app-footer.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PoliciesComponent } from './policies/policies.component';
-import { AddComponent } from './add/add.component';
+import { AddComponent } from './policies/add/add.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap';
-import { DeleteConfirmationModalComponent } from './delete-confirmation-modal/delete-confirmation-modal.component';
-import { DeletePolicyComponent } from './delete-policy/delete-policy.component';
+import { DeleteConfirmationModalComponent } from './policies/delete-confirmation-modal/delete-confirmation-modal.component';
+import { HeaderModule } from './header/header.module';
+import { FooterModule } from './footer/footer.module';
+import { PageHeaderModule } from './page-header/page-header.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppHeaderComponent,
-    AppFooterComponent,
     PoliciesComponent,
     AddComponent,
-    DeleteConfirmationModalComponent,
-    DeletePolicyComponent],
-    
+    DeleteConfirmationModalComponent],
+
   imports: [
     ModalModule.forRoot(),
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HeaderModule,
+    FooterModule,
+    PageHeaderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
