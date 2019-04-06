@@ -1,5 +1,6 @@
 import { Component, ViewChild, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { DeleteConfirmationModalService } from './delete-confirmation-modal.service';
 
 @Component({
   selector: 'delete-confirmation-modal',
@@ -9,9 +10,10 @@ export class DeleteConfirmationModalComponent implements OnChanges {
   modalRef: BsModalRef;
   @ViewChild('template') temp;
   @Input() display: boolean;
+  @Input() policyNumber: string;
   @Output() confirmed = new EventEmitter<boolean>();
 
-  constructor(private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService, private deleteConfirmationModalService: DeleteConfirmationModalService) { }
 
   ngOnChanges() {
     if (this.display) {

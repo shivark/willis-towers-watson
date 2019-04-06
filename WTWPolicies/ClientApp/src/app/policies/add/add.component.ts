@@ -4,15 +4,20 @@ import { PolicyService } from '../policy.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Policy } from 'src/models/policy';
+import { Title } from '@angular/platform-browser';
+import { switchMap, map, tap, filter, catchError } from 'rxjs/operators';
+import { PageTitles as PageTitles } from 'src/app/constants/page-titles';
+import { ErrorMessages } from 'src/app/constants/error-messages';
 
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss']
 })
-export class AddComponent implements OnInit, OnDestroy {
+export class AddEditComponent implements OnInit, OnDestroy {
   policyForm: FormGroup;
   errorMessage: string;
+  title: string;
   private policy: Policy
   private routSubscription: Subscription;
 
@@ -20,11 +25,8 @@ export class AddComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private policyService: PolicyService,
     private route: ActivatedRoute,
-    private router: Router) { }
-
-  get isNewPolicy(): boolean {
-    return !this.policy && true;
-  }
+    private router: Router,
+    private titleService: Title) { }
 
   ngOnDestroy(): void {
     this.routSubscription.unsubscribe();
@@ -34,14 +36,42 @@ export class AddComponent implements OnInit, OnDestroy {
     if (this.policyForm) {
       this.policyForm.reset();
     }
+    this.initialiseForm();
+    this.displayPolicy();
+    this.setPageTitle();
+  }
 
-    this.routSubscription = this.route.paramMap.subscribe(
-      params => {
-        const id = +params.get('id');
-        id && this.getPolicy(id);
-      }
-    );
+  saveClicked(): void {
+    if (!this.policyForm.valid || !this.policyForm.touched) {
+      return;
+    }
 
+    this.policyService.save({
+      policyNumber: this.policy.policyNumber || 0,
+      policyHolder: this.policyForm.value
+    }).subscribe(
+      () => this.onSaveComplete(),
+      () => this.errorMessage = ErrorMessages.savePolicy);
+  }
+
+  private displayPolicy() {
+    this.routSubscription = this.route.paramMap.pipe(
+      map(params => +params.get('id')),
+      switchMap(id => this.policyService.getById(id)
+        .pipe(
+          filter(p => p && true),
+          tap(p => this.policy = p),
+          tap(this.policyForm.patchValue))),
+      catchError(() => this.errorMessage = ErrorMessages.savePolicy
+      ))
+      .subscribe();
+  }
+
+  private setPageTitle() {
+    this.titleService.setTitle(this.policy ? PageTitles.edit : PageTitles.add);
+  }
+
+  private initialiseForm() {
     this.policyForm = this.formBuilder.group(
       {
         name: ['', [Validators.required,
@@ -50,46 +80,6 @@ export class AddComponent implements OnInit, OnDestroy {
         gender: '0'
       }
     );
-  }
-
-  saveClicked(): void {
-    if (this.policyForm.valid && this.isNewPolicy) {
-      this.policyService.post({
-        policyNumber: 0,
-        policyHolder: this.policyForm.value
-      })
-        .subscribe(
-          () => this.onSaveComplete(),
-          (error: any) => this.errorMessage = <any>error
-        );;
-    }
-
-    if (this.policyForm.touched && this.policyForm.valid && !this.isNewPolicy) {
-      this.policyService.update({
-        policyNumber: this.policy.policyNumber,
-        policyHolder: this.policyForm.value
-      })
-        .subscribe(
-          () => this.onSaveComplete(),
-          (error: any) => this.errorMessage = <any>error
-        );
-    }
-  }
-
-  private getPolicy(id: number): void {
-    this.policyService.getById(id)
-      .subscribe(
-        (policy: Policy) => { this.policy = policy; this.displayPolicy(); },
-        (error: any) => this.errorMessage = <any>error
-      );
-  }
-
-  private displayPolicy(): void {
-    this.policyForm.patchValue({
-      name: this.policy.policyHolder.name,
-      age: this.policy.policyHolder.age,
-      gender: this.policy.policyHolder.gender.toString(),
-    });
   }
 
   private onSaveComplete() {

@@ -40,35 +40,20 @@ export class PolicyService {
     );
   }
 
-  post(policy: Policy): Observable<Policy> {
-    let p: Policy = {
-      policyNumber: 123,
-      policyHolder: {
-        age: 24,
-        name: 'Pashmi',
-        gender: Gender.female
-      }
-    };
+  save(policy: Policy): Observable<Policy> {
+    return policy.policyNumber ? this.update(policy) : this.post(policy);
+  }
 
-    return this.http.post<Policy>(this.apiUrl, p)
+  private post(policy: Policy): Observable<Policy> {
+    return this.http.post<Policy>(this.apiUrl, policy)
       .pipe(
         tap(data => console.log('create Policy: ' + JSON.stringify(data))),
         catchError(this.handleError)
       );
   }
 
-  update(policy: Policy): Observable<Policy> {
-    console.log('update is called');
-    let p: Policy = {
-      policyNumber: 123,
-      policyHolder: {
-        age: 24,
-        name: 'Pashmi',
-        gender: Gender.female
-      }
-    };
-
-    return this.http.put<Policy>(this.apiUrl, p)
+  private update(policy: Policy): Observable<Policy> {
+    return this.http.put<Policy>(this.apiUrl, policy)
       .pipe(
         tap(data => console.log('create Policy: ' + JSON.stringify(data))),
         catchError(this.handleError)

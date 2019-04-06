@@ -5,7 +5,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from './app-routing.module';
 import { PoliciesComponent } from './policies/policies.component';
-import { AddComponent } from './policies/add/add.component';
+import { AddEditComponent } from './policies/add/add.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap';
 import { DeleteConfirmationModalComponent } from './policies/delete-confirmation-modal/delete-confirmation-modal.component';
@@ -18,7 +18,7 @@ import { PageHeaderModule } from './page-header/page-header.module';
   declarations: [
     AppComponent,
     PoliciesComponent,
-    AddComponent,
+    AddEditComponent,
     DeleteConfirmationModalComponent],
 
   imports: [

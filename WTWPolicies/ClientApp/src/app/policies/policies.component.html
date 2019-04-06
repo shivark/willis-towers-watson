@@ -16,14 +16,12 @@
         <td>{{policy.policyHolder.age}}</td>
         <td>{{gender[policy.policyHolder.gender]}}</td>
         <td class="text-right">
-          <a href="/edit" class="btn edit-btn text-hide">Edit</a>
+          <a [attr.href]="'edit/' + policy.policyNumber" class="btn edit-btn text-hide">Edit</a>
           <a class="btn delete-btn text-hide" (click)="deleteClicked(policy.policyNumber)">Delete</a>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
-
-<!-- USE SERVICE WITH SUBJECT-->
-<delete-confirmation-modal (confirmed)="deleteConfirmed($event)" [display]="displayDeleteDialogBox">
+<delete-confirmation-modal [policyNumber]="policyNumberToDelete">
 </delete-confirmation-modal>

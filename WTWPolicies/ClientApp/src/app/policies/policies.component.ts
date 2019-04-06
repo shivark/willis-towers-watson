@@ -2,6 +2,10 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { PolicyService } from './policy.service';
 import { Policy } from 'src/models/policy';
 import { Gender } from 'src/models/gender';
+import { Title } from '@angular/platform-browser';
+import { PageTitles } from '../constants/page-titles';
+import { DeleteConfirmationModalService } from './delete-confirmation-modal/delete-confirmation-modal.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -10,28 +14,33 @@ import { Gender } from 'src/models/gender';
   styleUrls: ['./policies.component.scss']
 })
 export class PoliciesComponent implements OnInit {
-  displayDeleteDialogBox: boolean;
   gender = Gender;
   policies: Policy[];
-  private policyIdToDelete: number;
+  policyNumberToDelete: number;
+  displayDeleteModal$: Observable<boolean>;
 
-  constructor(private policy: PolicyService) { }
+  constructor(
+    private policy: PolicyService,
+    private titleService: Title,
+    private deleteConfirmationModalService: DeleteConfirmationModalService) { }
 
   ngOnInit() {
+    this.titleService.setTitle(PageTitles.policies);
     this.getPolicies();
+    this.displayDeleteModal$ = this.deleteConfirmationModalService.displayDeleteModal$;
   }
 
   deleteClicked(id: number) {
-    this.policyIdToDelete = id;
-    this.displayDeleteDialogBox = true;
+    this.policyNumberToDelete = id;
+    this.deleteConfirmationModalService.displayModal(true);
   }
 
   deleteConfirmed() {
-    this.displayDeleteDialogBox = false;
+    this.deleteConfirmationModalService.displayModal(false);
 
     this.policy
-      .delete(this.policyIdToDelete)
-      .subscribe(() => this.deleteFromView(this.policies, this.policyIdToDelete));
+      .delete(this.policyNumberToDelete)
+      .subscribe(() => this.deleteFromView(this.policies, this.policyNumberToDelete));
   }
 
   private deleteFromView(arr: Policy[], id: number) {
