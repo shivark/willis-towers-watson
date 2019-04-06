@@ -1,7 +1,7 @@
 <ng-template #template>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Delete policy</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -10,7 +10,7 @@
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-sm btn-outline-secondary float-right" (click)="modalRef.hide()">Close</button>
+    <button type="button" class="btn btn-sm btn-outline-secondary float-right" (click)="hide()">Close</button>
     <button type="button" class="btn btn-sm btn-outline-secondary float-right" (click)="confirm()">Confirm</button>
   </div>
 </ng-template>

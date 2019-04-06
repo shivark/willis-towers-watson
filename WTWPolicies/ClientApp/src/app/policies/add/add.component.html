@@ -9,9 +9,7 @@
         <label class="col-md-2 col-form-label" for="name">Name:</label>
         <div class="col-md-8">
           <input class="form-control" id="name" type="text" placeholder="Name (required)" formControlName="name"
-            [ngClass]="{'is-invalid': (policyForm.get('name').touched ||
-                                              policyForm.get('name').dirty) &&
-                                              !policyForm.get('name').valid }" />
+            [class.is-invalid]="isInValid('name')" />
           <span class="invalid-feedback">
             <span *ngIf="policyForm.get('name').errors?.required">
               Please enter your first name.
@@ -48,12 +46,10 @@
 
       <div class="form-group row mb-2">
         <div class="offset-md-2 col-md-8">
-          <button class="btn btn-sm btn-outline-secondary float-right" type="submit"
-            [title]="policyForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
-            [disabled]="!policyForm.valid">
+          <button class="btn btn-sm btn-outline-secondary float-right" type="submit" [disabled]="!policyForm.valid">
             Save
           </button>
-          <button class="btn btn-sm btn-outline-secondary float-right">Cancel</button>
+          <a href="\" class="btn btn-sm btn-outline-secondary float-right">Cancel</a>
         </div>
       </div>
     </form>

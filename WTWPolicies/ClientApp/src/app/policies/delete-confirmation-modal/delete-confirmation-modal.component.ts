@@ -1,31 +1,36 @@
-import { Component, ViewChild, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, Input, OnInit } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { PolicyDeleteService } from '../policy-delete.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'delete-confirmation-modal',
   templateUrl: './delete-confirmation-modal.component.html'
 })
-export class DeleteConfirmationModalComponent implements OnChanges {
-  modalRef: BsModalRef;
+export class DeleteConfirmationModalComponent implements OnInit {
   @ViewChild('template') temp;
-  @Input() display: boolean;
   @Input() policyNumber: string;
-  @Output() confirmed = new EventEmitter<boolean>();
+  private modalRef: BsModalRef;
 
-  constructor(private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService, private policyDeleteService: PolicyDeleteService) {
+  }
 
-  ngOnChanges() {
-    if (this.display) {
-      this.modalRef = this.modalService.show(this.temp);
-    }
+  ngOnInit() {
+    this.policyDeleteService
+      .displayDeleteModal$
+      .pipe(filter(d => d && true))
+      .subscribe(() => this.modalRef = this.modalService.show(this.temp));
   }
 
   confirm() {
-    this.confirmed.emit(true);
+    this.policyDeleteService.confirmDelete(true);
     this.modalRef.hide();
+    this.policyDeleteService.displayModal(false);
   }
 
   hide() {
-
+    this.modalRef.hide();
+    this.policyDeleteService.confirmDelete(false);
+    this.policyDeleteService.displayModal(false);
   }
 }

@@ -54,6 +54,12 @@ export class AddEditComponent implements OnInit, OnDestroy {
       () => this.errorMessage = ErrorMessages.savePolicy);
   }
 
+  isInValid(input): boolean {
+    return (this.policyForm.get(input).touched ||
+      this.policyForm.get(input).dirty) &&
+      !this.policyForm.get(input).valid
+  }
+
   private displayPolicy() {
     this.routSubscription = this.route.paramMap.pipe(
       map(params => +params.get('id')),
