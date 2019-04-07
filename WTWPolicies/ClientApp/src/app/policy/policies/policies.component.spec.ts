@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PoliciesComponent } from './policies.component';
 import { By } from '@angular/platform-browser';
-import { DeleteConfirmationModalComponent } from '../delete-confirmation-modal/delete-confirmation-modal.component';
+import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 import { MockComponent } from 'ng2-mock-component';
 import { PolicyService } from '../policy.service';
 import { of } from 'rxjs';
@@ -23,7 +23,7 @@ fdescribe('PoliciesComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         PoliciesComponent,
-        MockComponent({ selector: 'delete-confirmation-modal', inputs: ['display'] }),
+        MockComponent({ selector: 'delete-modal', inputs: ['display'] }),
       ],
       providers: [
         { provide: PolicyService, useValue: policyServiceMock }
@@ -39,8 +39,8 @@ fdescribe('PoliciesComponent', () => {
   });
 
   it('should display deleteConfirmstionModal', () => {
-    let de = fixture.debugElement.query(By.css('delete-confirmation-modal'));
-    let childComponent: DeleteConfirmationModalComponent = de.componentInstance;
+    let de = fixture.debugElement.query(By.css('delete-modal'));
+    let childComponent: DeleteModalComponent = de.componentInstance;
 
     expect(childComponent).toBeTruthy();
     expect(childComponent.display).toBeFalsy();

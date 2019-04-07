@@ -1,25 +1,21 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from './app-routing.module';
-import { PoliciesComponent } from './policy/policies/policies.component';
-import { AddEditComponent } from './policy/add/add.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap';
-import { DeleteConfirmationModalComponent } from './policy/delete-confirmation-modal/delete-confirmation-modal.component';
 import { HeaderModule } from './header/header.module';
 import { FooterModule } from './footer/footer.module';
 import { PageHeaderModule } from './page-header/page-header.module';
+import { PolicyModule } from './policy/policy.module';
+import { HttpErrorInterceptor } from './http-error.interceptor';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    PoliciesComponent,
-    AddEditComponent,
-    DeleteConfirmationModalComponent],
+    AppComponent],
 
   imports: [
     ModalModule.forRoot(),
@@ -29,9 +25,16 @@ import { PageHeaderModule } from './page-header/page-header.module';
     ReactiveFormsModule,
     HeaderModule,
     FooterModule,
-    PageHeaderModule
+    PageHeaderModule,
+    PolicyModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

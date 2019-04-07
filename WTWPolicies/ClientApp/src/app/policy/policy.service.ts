@@ -17,8 +17,7 @@ export class PolicyService {
     return this.http
       .get<Policy[]>(this.apiUrl)
       .pipe(
-        tap(res => console.log("response", res)),
-        catchError(this.handleError))
+        tap(res => console.log("response", res)))
   }
 
   // getAll() {
@@ -43,18 +42,13 @@ export class PolicyService {
     return this.http
       .get<Policy>(`${this.apiUrl}${id}`)
       .pipe(
-        tap(res => console.log("response", res)),
-        catchError(this.handleError))
+        tap(res => console.log("response", res)))
   }
 
 
   delete(policyId: Policy | number): Observable<{}> {
     const id = typeof policyId === 'number' ? policyId : policyId.policyNumber;
-
-    return this.http.delete<Policy>(`${this.apiUrl}${id}`).pipe(
-      tap(() => console.log(`deleted hero id=${id}`)),
-      catchError(this.handleError)
-    );
+    return this.http.delete<Policy>(`${this.apiUrl}${id}`);
   }
 
   save(policy: Policy): Observable<Policy> {
@@ -64,28 +58,14 @@ export class PolicyService {
   private post(policy: Policy): Observable<Policy> {
     return this.http.post<Policy>(this.apiUrl, policy)
       .pipe(
-        tap(data => console.log('create Policy: ' + JSON.stringify(data))),
-        catchError(this.handleError)
+        tap(data => console.log('create Policy: ' + JSON.stringify(data)))
       );
   }
 
   private update(policy: Policy): Observable<Policy> {
     return this.http.put<Policy>(this.apiUrl, policy)
       .pipe(
-        tap(data => console.log('create Policy: ' + JSON.stringify(data))),
-        catchError(this.handleError)
+        tap(data => console.log('create Policy: ' + JSON.stringify(data)))
       );
-  }
-
-
-  private handleError(err) {
-    let errorMessage: string;
-    if (err.error instanceof ErrorEvent) {
-      errorMessage = `An error occurred: ${err.error.message}`;
-    } else {
-      errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
-    }
-    console.error(err);
-    return throwError(errorMessage);
   }
 }

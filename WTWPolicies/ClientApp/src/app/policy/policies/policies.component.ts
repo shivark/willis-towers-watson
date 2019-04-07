@@ -1,13 +1,13 @@
-import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PolicyService } from '../policy.service';
 import { Policy } from 'src/models/policy';
 import { Gender } from 'src/models/gender';
 import { Title } from '@angular/platform-browser';
-import { PageTitles } from '../../constants/page-titles';
 import { PolicyDeleteService } from '../policy-delete.service';
 import { filter, switchMap, tap, catchError } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { ErrorMessages } from '../../constants/error-messages';
+import { PageTitles } from 'src/constants/page-titles';
+import { ErrorMessages } from 'src/constants/error-messages';
 
 @Component({
   selector: 'app-policies',

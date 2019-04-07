@@ -4,10 +4,10 @@ import { PolicyDeleteService } from '../policy-delete.service';
 import { filter } from 'rxjs/operators';
 
 @Component({
-  selector: 'delete-confirmation-modal',
-  templateUrl: './delete-confirmation-modal.component.html'
+  selector: 'delete-modal',
+  templateUrl: './delete-modal.component.html'
 })
-export class DeleteConfirmationModalComponent implements OnInit {
+export class DeleteModalComponent implements OnInit {
   @ViewChild('template') temp;
   @Input() policyNumber: string;
   private modalRef: BsModalRef;
