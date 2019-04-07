@@ -17,7 +17,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
     this.sub = this.pageHeaderService.pageHeaderTitle$
       .subscribe(t => {
         this.title = t;
-        this.titleService.setTitle(t)
+        this.titleService.setTitle(t);
       });
   }
 

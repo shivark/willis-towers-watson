@@ -79,7 +79,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
   }
 
   private setHeaderTitle(policy: Policy) {
-    var title = policy ? PAGE_TITLES.EDIT : PAGE_TITLES.ADD;
+    const title = policy ? PAGE_TITLES.EDIT : PAGE_TITLES.ADD;
     this.pageHeaderService.setHeaderTitle(title);
   }
 
@@ -96,14 +96,14 @@ export class AddEditComponent implements OnInit, OnDestroy {
       name: policy.policyHolder.name,
       age: policy.policyHolder.age,
       gender: policy.policyHolder.gender.toString()
-    }
+    };
   }
 
   private mapFormToPolicy(): Policy {
     return {
       policyNumber: this.policy ? this.policy.policyNumber : 0,
       policyHolder: this.policyForm.value
-    }
+    };
   }
 
   private onSaveComplete() {

@@ -46,13 +46,14 @@ export class PoliciesComponent implements OnInit, OnDestroy {
 
   checkDeleteConfirmation() {
     return this.policyDeleteService.deleteConfirmed$
-      .pipe(filter(c => c && true),
+      .pipe(
+        filter(confirmed => confirmed),
         switchMap(() =>
           this.policyService.delete(this.policyToDel)
             .pipe(tap(() => this.deleteFromView(this.policies, this.policyToDel))
             )),
         catchError(() => this.errorMessage = ERROR_MESSAGES.DELETE_POLICY)
-      )
+      );
   }
 
   private deleteFromView(arr: Policy[], id: number) {

@@ -16,7 +16,7 @@ export class PolicyBuilder {
                 age: this.policyHolderAge,
                 gender: this.policyHolderGender
             }
-        }
+        };
     }
 
     withPolicyNumber(policyNumber: number): PolicyBuilder {

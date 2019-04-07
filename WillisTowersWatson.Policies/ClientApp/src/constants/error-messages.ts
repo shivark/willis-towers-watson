@@ -3,4 +3,4 @@ export const ERROR_MESSAGES = {
     LOAD_POLICY: 'Something went wrong while trying to save, please try later.',
     DELETE_POLICY: 'Something went wrong while trying to delete, please try later.',
 
-}
+};

@@ -8,7 +8,7 @@ import { Policy } from 'src/models/policy';
   providedIn: 'root'
 })
 export class PolicyService {
-  private apiUrl: string = '/api/policies/';
+  private apiUrl = '/api/policies/';
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +19,7 @@ export class PolicyService {
 
   getById(id: number): Observable<Policy> {
     return this.http
-      .get<Policy>(`${this.apiUrl}${id}`)
+      .get<Policy>(`${this.apiUrl}${id}`);
   }
 
   delete(policyId: Policy | number): Observable<{}> {

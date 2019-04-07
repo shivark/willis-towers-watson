@@ -19,8 +19,8 @@ fdescribe('PoliciesComponent', () => {
   let policyServiceMock: jasmine.SpyObj<PolicyService>;
   let pageHeaderServiceMock: jasmine.SpyObj<PageHeaderService>;
   let policyDeleteServiceMock: any;
-  let policy1: Policy = new PolicyBuilder().withPolicyNumber(1).build();
-  let policy2: Policy = new PolicyBuilder().withPolicyNumber(2).build();
+  const policy1: Policy = new PolicyBuilder().withPolicyNumber(1).build();
+  const policy2: Policy = new PolicyBuilder().withPolicyNumber(2).build();
   const policies = [policy1, policy2];
 
   beforeEach(() => {
@@ -120,8 +120,8 @@ fdescribe('PoliciesComponent', () => {
     });
 
     it('should display deleteConfirmstionModal', () => {
-      let element = fixture.debugElement.query(By.css('delete-modal'));
-      let childComponent: DeleteModalComponent = element.componentInstance;
+      const element = fixture.debugElement.query(By.css('delete-modal'));
+      const childComponent: DeleteModalComponent = element.componentInstance;
 
       expect(childComponent).toBeTruthy();
       expect(childComponent.policyNumber).toBe(component.policyToDel);
@@ -131,7 +131,7 @@ fdescribe('PoliciesComponent', () => {
       component.errorMessage = null;
       fixture.detectChanges();
 
-      let element = fixture.debugElement.query(By.css('#error-message'));
+      const element = fixture.debugElement.query(By.css('#error-message'));
 
       expect(element).toBeFalsy();
     });
@@ -140,7 +140,7 @@ fdescribe('PoliciesComponent', () => {
       component.errorMessage = 'Some error happened';
       fixture.detectChanges();
 
-      let element = fixture.debugElement.query(By.css('#error-message'));
+      const element = fixture.debugElement.query(By.css('#error-message'));
 
       expect(element).toBeTruthy();
       expect(element.nativeElement.innerText).toBe(component.errorMessage);
