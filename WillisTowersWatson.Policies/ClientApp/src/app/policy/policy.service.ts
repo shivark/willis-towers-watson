@@ -3,28 +3,24 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Policy } from 'src/models/policy';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class PolicyService {
-  private apiUrl = '/api/policies/';
+  private API_URL = '/api/policies/';
 
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Policy[]> {
-    return this.http
-      .get<Policy[]>(this.apiUrl);
+    return this.http.get<Policy[]>(this.API_URL);
   }
 
   getById(id: number): Observable<Policy> {
-    return this.http
-      .get<Policy>(`${this.apiUrl}${id}`);
+    return this.http.get<Policy>(`${this.API_URL}${id}`);
   }
 
-  delete(policyId: Policy | number): Observable<{}> {
-    const id = typeof policyId === 'number' ? policyId : policyId.policyNumber;
-    return this.http.delete<Policy>(`${this.apiUrl}${id}`);
+  delete(policyNumber: number): Observable<{}> {
+    return this.http.delete<Policy>(`${this.API_URL}${policyNumber}`);
   }
 
   save(policy: Policy): Observable<Policy> {
@@ -32,10 +28,10 @@ export class PolicyService {
   }
 
   private post(policy: Policy): Observable<Policy> {
-    return this.http.post<Policy>(this.apiUrl, policy);
+    return this.http.post<Policy>(this.API_URL, policy);
   }
 
   private update(policy: Policy): Observable<Policy> {
-    return this.http.put<Policy>(this.apiUrl, policy);
+    return this.http.put<Policy>(this.API_URL, policy);
   }
 }
