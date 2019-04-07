@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Policy } from 'src/models/policy';
-import { catchError, tap } from 'rxjs/operators';
-import { Gender } from 'src/models/gender';
+import { catchError, tap, groupBy, toArray, mergeMap, map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -21,6 +20,24 @@ export class PolicyService {
         tap(res => console.log("response", res)),
         catchError(this.handleError))
   }
+
+  // getAll() {
+  //   return this.http
+  //     .get<any>(this.apiUrl)
+  //     .pipe(
+  //       tap(x => console.log(x)),
+  //       map(x => {
+
+  //         return {
+  //           policyNumber: x.policyNumber,
+  //           policyHolder: x.PolicyHolder.name
+  //         }
+  //       }),
+  //       groupBy((p: Policy) => p.policyNumber),
+  //       mergeMap(group => group.pipe(toArray())
+  //       )
+  //     );
+  // }
 
   getById(id: number): Observable<Policy> {
     return this.http

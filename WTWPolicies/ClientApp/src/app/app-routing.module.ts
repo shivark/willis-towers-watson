@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PoliciesComponent } from './policies/policies.component';
-import { AddEditComponent } from './policies/add/add.component';
+import { PoliciesComponent } from './policy/policies/policies.component';
+import { AddEditComponent } from './policy/add/add.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/policies', pathMatch: 'full' },

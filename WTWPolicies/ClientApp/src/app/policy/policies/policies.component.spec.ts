@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PoliciesComponent } from './policies.component';
 import { By } from '@angular/platform-browser';
-import { DeleteConfirmationModalComponent } from './delete-confirmation-modal/delete-confirmation-modal.component';
+import { DeleteConfirmationModalComponent } from '../delete-confirmation-modal/delete-confirmation-modal.component';
 import { MockComponent } from 'ng2-mock-component';
-import { PolicyService } from './policy.service';
+import { PolicyService } from '../policy.service';
 import { of } from 'rxjs';
 import { Policy } from 'src/models/policy';
 import { PolicyBuilder } from 'src/test-helpers/builders/policy.builder';
