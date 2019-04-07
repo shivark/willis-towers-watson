@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PageHeaderService } from './page-header.service';
 
 @Component({
   selector: 'page-header',
@@ -9,18 +9,19 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./page-header.component.scss']
 })
 export class PageHeaderComponent implements OnInit, OnDestroy {
-
   title: string;
-  private routerSub: Subscription;
-  constructor(private router: Router, private titleService: Title) { }
+  private sub: Subscription;
+  constructor(private pageHeaderService: PageHeaderService, private titleService: Title) { }
 
   ngOnInit() {
-    this.routerSub = this.router.events.subscribe(() => {
-      this.title = this.titleService.getTitle();
-    });
+    this.sub = this.pageHeaderService.pageHeaderTitle$
+      .subscribe(t => {
+        this.title = t;
+        this.titleService.setTitle(t)
+      });
   }
 
   ngOnDestroy() {
-    this.routerSub.unsubscribe();
+    this.sub.unsubscribe();
   }
 }

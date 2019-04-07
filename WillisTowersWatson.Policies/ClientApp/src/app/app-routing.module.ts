@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PoliciesComponent } from './policy/policies/policies.component';
-import { AddEditComponent } from './policy/add/add.component';
+import { AddEditComponent } from './policy/add-edit/add-edit.component';
 import { ROUTES } from 'src/constants/routes';
 
 const routes: Routes = [

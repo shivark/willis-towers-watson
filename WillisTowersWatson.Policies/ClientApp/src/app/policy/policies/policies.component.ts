@@ -8,6 +8,7 @@ import { filter, switchMap, tap, catchError } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { PAGE_TITLES } from 'src/constants/page-titles';
 import { ERROR_MESSAGES } from 'src/constants/error-messages';
+import { PageHeaderService } from 'src/app/page-header/page-header.service';
 
 @Component({
   selector: 'app-policies',
@@ -25,11 +26,11 @@ export class PoliciesComponent implements OnInit, OnDestroy {
 
   constructor(
     private policyService: PolicyService,
-    private titleService: Title,
+    private pageHeaderService: PageHeaderService,
     private deleteConfirmationModalService: PolicyDeleteService) { }
 
   ngOnInit() {
-    this.titleService.setTitle(PAGE_TITLES.POLICIES);
+    this.pageHeaderService.setHeaderTitle(PAGE_TITLES.POLICIES);
     this.getPolicies();
     this.deleteConfirmed();
   }
