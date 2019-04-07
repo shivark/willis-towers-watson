@@ -24,14 +24,14 @@ export class PolicyService {
   }
 
   save(policy: Policy): Observable<Policy> {
-    return policy.policyNumber ? this.update(policy) : this.post(policy);
+    return policy.policyNumber ? this.put(policy) : this.post(policy);
   }
 
   private post(policy: Policy): Observable<Policy> {
     return this.http.post<Policy>(this.API_URL, policy);
   }
 
-  private update(policy: Policy): Observable<Policy> {
+  private put(policy: Policy): Observable<Policy> {
     return this.http.put<Policy>(this.API_URL, policy);
   }
 }
