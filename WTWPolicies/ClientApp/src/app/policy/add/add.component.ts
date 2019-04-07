@@ -6,8 +6,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Policy } from 'src/models/policy';
 import { Title } from '@angular/platform-browser';
 import { switchMap, map, tap, filter, catchError } from 'rxjs/operators';
-import { PageTitles as PageTitles } from 'src/app/constants/page-titles';
-import { ErrorMessages } from 'src/app/constants/error-messages';
+import { ERROR_MESSAGES } from 'src/constants/error-messages';
+import { PAGE_TITLES } from 'src/constants/page-titles';
+
 
 @Component({
   selector: 'app-add',
@@ -51,7 +52,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
       policyHolder: this.policyForm.value
     }).subscribe(
       () => this.onSaveComplete(),
-      () => this.errorMessage = ErrorMessages.savePolicy);
+      () => this.errorMessage = ERROR_MESSAGES.SAVE_POLICY);
   }
 
   isInValid(input): boolean {
@@ -68,13 +69,13 @@ export class AddEditComponent implements OnInit, OnDestroy {
           filter(p => p && true),
           tap(p => this.policy = p),
           tap(this.policyForm.patchValue))),
-      catchError(() => this.errorMessage = ErrorMessages.savePolicy
+      catchError(() => this.errorMessage = ERROR_MESSAGES.SAVE_POLICY
       ))
       .subscribe();
   }
 
   private setPageTitle() {
-    this.titleService.setTitle(this.policy ? PageTitles.edit : PageTitles.add);
+    this.titleService.setTitle(this.policy ? PAGE_TITLES.EDIT : PAGE_TITLES.ADD);
   }
 
   private initialiseForm() {

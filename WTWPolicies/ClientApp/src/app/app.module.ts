@@ -4,7 +4,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from './app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap';
 import { HeaderModule } from './header/header.module';
 import { FooterModule } from './footer/footer.module';
@@ -22,7 +21,6 @@ import { HttpErrorInterceptor } from './http-error.interceptor';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
     HeaderModule,
     FooterModule,
     PageHeaderModule,

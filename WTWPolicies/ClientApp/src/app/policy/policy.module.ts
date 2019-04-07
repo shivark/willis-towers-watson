@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AddEditComponent } from './add/add.component';
 import { PoliciesComponent } from './policies/policies.component';
 import { DeleteModalComponent } from './delete-modal/delete-modal.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { DeleteModalComponent } from './delete-modal/delete-modal.component';
     DeleteModalComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
   ],
   exports: [PoliciesComponent]
 })

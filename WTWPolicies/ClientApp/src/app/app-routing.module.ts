@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PoliciesComponent } from './policy/policies/policies.component';
 import { AddEditComponent } from './policy/add/add.component';
+import { ROUTES } from 'src/constants/routes';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/policies', pathMatch: 'full' },
-    { path: 'policies', component: PoliciesComponent },
-    { path: 'add', component: AddEditComponent },
+    { path: ROUTES.HOME, redirectTo: ROUTES.POLICIES, pathMatch: 'full' },
+    { path: ROUTES.POLICIES, component: PoliciesComponent },
+    { path: ROUTES.ADD, component: AddEditComponent },
     {
-        path: 'edit/:id',
+        path: ROUTES.EDIT,
         component: AddEditComponent
     }
 ];

@@ -6,8 +6,8 @@ import { Title } from '@angular/platform-browser';
 import { PolicyDeleteService } from '../policy-delete.service';
 import { filter, switchMap, tap, catchError } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { PageTitles } from 'src/constants/page-titles';
-import { ErrorMessages } from 'src/constants/error-messages';
+import { PAGE_TITLES } from 'src/constants/page-titles';
+import { ERROR_MESSAGES } from 'src/constants/error-messages';
 
 @Component({
   selector: 'app-policies',
@@ -29,7 +29,7 @@ export class PoliciesComponent implements OnInit, OnDestroy {
     private deleteConfirmationModalService: PolicyDeleteService) { }
 
   ngOnInit() {
-    this.titleService.setTitle(PageTitles.policies);
+    this.titleService.setTitle(PAGE_TITLES.POLICIES);
     this.getPolicies();
     this.deleteConfirmed();
   }
@@ -51,7 +51,7 @@ export class PoliciesComponent implements OnInit, OnDestroy {
           this.policyService.delete(this.policyNumberToDelete)
             .pipe(tap(() => this.deleteFromView(this.policies, this.policyNumberToDelete))
             )),
-        catchError(() => this.errorMessage = ErrorMessages.deletePolicy)
+        catchError(() => this.errorMessage = ERROR_MESSAGES.DELETE_POLICY)
       ).subscribe();
   }
 

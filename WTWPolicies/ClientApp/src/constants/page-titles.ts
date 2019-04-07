@@ -1,5 +1,5 @@
-export const PageTitles = {
-    edit: 'Edit policy',
-    add: 'Add policy',
-    policies: 'Policies'
+export const PAGE_TITLES = {
+    EDIT: 'Edit policy',
+    ADD: 'Add policy',
+    POLICIES: 'Policies'
 }
