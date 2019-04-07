@@ -1,5 +1,5 @@
 <div class="table-responsive">
-  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}
+  <div id="error-message" class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}
   </div>
   <table class="table table-striped table-xs">
     <thead>
@@ -25,5 +25,5 @@
     </tbody>
   </table>
 </div>
-<delete-modal [policyNumber]="policyNumberToDelete">
+<delete-modal [policyNumber]="policyToDel">
 </delete-modal>

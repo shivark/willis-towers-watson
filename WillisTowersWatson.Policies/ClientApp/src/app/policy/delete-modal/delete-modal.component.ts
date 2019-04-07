@@ -9,7 +9,7 @@ import { filter } from 'rxjs/operators';
 })
 export class DeleteModalComponent implements OnInit {
   @ViewChild('template') temp;
-  @Input() policyNumber: string;
+  @Input() policyNumber: number;
   private modalRef: BsModalRef;
 
   constructor(private modalService: BsModalService, private policyDeleteService: PolicyDeleteService) {

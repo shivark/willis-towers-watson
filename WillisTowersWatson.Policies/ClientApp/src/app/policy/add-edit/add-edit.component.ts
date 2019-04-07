@@ -8,7 +8,6 @@ import { switchMap, map, tap, filter, catchError } from "rxjs/operators";
 import { ERROR_MESSAGES } from "src/constants/error-messages";
 import { PageHeaderService } from 'src/app/page-header/page-header.service';
 import { PAGE_TITLES } from 'src/constants/page-titles';
-import { Gender } from 'src/models/gender';
 
 @Component({
   selector: "app-add-edit",
@@ -18,7 +17,6 @@ import { Gender } from 'src/models/gender';
 export class AddEditComponent implements OnInit, OnDestroy {
   policyForm: FormGroup;
   errorMessage: string;
-  title: string;
   private policy: Policy;
   private policySub: Subscription;
   private saveSub: Subscription;
@@ -74,7 +72,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
             tap(p => this.setHeaderTitle(p)),
             filter(p => p && true),
             tap(p => (this.policy = p)),
-            tap(p => this.mapPolicyToForm(p))
+            tap(p => this.policyForm.patchValue(this.mapPolicyToForm(p)))
           )
         ),
         catchError(() => (this.errorMessage = ERROR_MESSAGES.SAVE_POLICY)));
@@ -94,11 +92,11 @@ export class AddEditComponent implements OnInit, OnDestroy {
   }
 
   private mapPolicyToForm(policy: Policy) {
-    this.policyForm.patchValue({
+    return {
       name: policy.policyHolder.name,
       age: policy.policyHolder.age,
       gender: policy.policyHolder.gender.toString()
-    })
+    }
   }
 
   private mapFormToPolicy(): Policy {

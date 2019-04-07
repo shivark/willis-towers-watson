@@ -1,14 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PolicyService } from '../policy.service';
 import { Policy } from 'src/models/policy';
-import { Gender } from 'src/models/gender';
-import { Title } from '@angular/platform-browser';
 import { PolicyDeleteService } from '../policy-delete.service';
 import { filter, switchMap, tap, catchError } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { PAGE_TITLES } from 'src/constants/page-titles';
 import { ERROR_MESSAGES } from 'src/constants/error-messages';
 import { PageHeaderService } from 'src/app/page-header/page-header.service';
+import { Gender } from 'src/models/gender';
 
 @Component({
   selector: 'app-policies',
@@ -17,22 +16,22 @@ import { PageHeaderService } from 'src/app/page-header/page-header.service';
 })
 
 export class PoliciesComponent implements OnInit, OnDestroy {
-  gender = Gender;
   policies: Policy[];
-  policyNumberToDelete: number;
+  policyToDel: number;
   errorMessage: string;
+  gender = Gender;
   private deleteSub: Subscription;
   private policySub: Subscription;
 
   constructor(
     private policyService: PolicyService,
     private pageHeaderService: PageHeaderService,
-    private deleteConfirmationModalService: PolicyDeleteService) { }
+    private policyDeleteService: PolicyDeleteService) { }
 
   ngOnInit() {
     this.pageHeaderService.setHeaderTitle(PAGE_TITLES.POLICIES);
     this.getPolicies();
-    this.deleteConfirmed();
+    this.checkDeleteConfirmation();
   }
 
   ngOnDestroy() {
@@ -41,19 +40,19 @@ export class PoliciesComponent implements OnInit, OnDestroy {
   }
 
   deleteClicked(id: number) {
-    this.policyNumberToDelete = id;
-    this.deleteConfirmationModalService.displayModal(true);
+    this.policyToDel = id;
+    this.policyDeleteService.displayModal(true);
   }
 
-  deleteConfirmed() {
-    this.deleteSub = this.deleteConfirmationModalService.deleteConfirmed$
+  checkDeleteConfirmation() {
+    return this.policyDeleteService.deleteConfirmed$
       .pipe(filter(c => c && true),
         switchMap(() =>
-          this.policyService.delete(this.policyNumberToDelete)
-            .pipe(tap(() => this.deleteFromView(this.policies, this.policyNumberToDelete))
+          this.policyService.delete(this.policyToDel)
+            .pipe(tap(() => this.deleteFromView(this.policies, this.policyToDel))
             )),
         catchError(() => this.errorMessage = ERROR_MESSAGES.DELETE_POLICY)
-      ).subscribe();
+      )
   }
 
   private deleteFromView(arr: Policy[], id: number) {
