@@ -44,12 +44,12 @@ export class AddEditComponent implements OnInit, OnDestroy {
 
   onSaveClicked(): void {
 
-    if (!this.policyForm.valid || !this.policyForm.touched) {
-      return;
-    }
-
     if (this.policyForm.valid && !this.policyForm.touched) {
       this.errorMessage = ERROR_MESSAGES.EDIT_UNCHANGED;
+    }
+
+    if (!this.policyForm.valid || !this.policyForm.touched) {
+      return;
     }
 
     this.saveSub = this.policyService
