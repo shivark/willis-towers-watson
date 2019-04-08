@@ -34,17 +34,22 @@ export class AddEditComponent implements OnInit, OnDestroy {
     this.saveSub.unsubscribe();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.policyForm) {
       this.policyForm.reset();
     }
     this.setUpForm();
-    this.policySub = this.initialiseFormWithPolicy().subscribe();
+    this.initialiseFormWithPolicy();
   }
 
-  saveClicked(): void {
+  onSaveClicked(): void {
+
     if (!this.policyForm.valid || !this.policyForm.touched) {
       return;
+    }
+
+    if (this.policyForm.valid && !this.policyForm.touched) {
+      this.errorMessage = ERROR_MESSAGES.EDIT_UNCHANGED;
     }
 
     this.saveSub = this.policyService
@@ -55,7 +60,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
       );
   }
 
-  isInValid(input): boolean {
+  isInvalid(input): boolean {
     return (
       (this.policyForm.get(input).touched ||
         this.policyForm.get(input).dirty) &&
@@ -63,8 +68,8 @@ export class AddEditComponent implements OnInit, OnDestroy {
     );
   }
 
-  private initialiseFormWithPolicy() {
-    return this.route.paramMap
+  private initialiseFormWithPolicy(): void {
+    this.policySub = this.route.paramMap
       .pipe(
         map(params => +params.get("id")),
         switchMap(id =>
@@ -75,15 +80,16 @@ export class AddEditComponent implements OnInit, OnDestroy {
             tap(p => this.policyForm.patchValue(this.mapPolicyToForm(p)))
           )
         ),
-        catchError(() => (this.errorMessage = ERROR_MESSAGES.SAVE_POLICY)));
+        catchError(() => (this.errorMessage = ERROR_MESSAGES.SAVE_POLICY)))
+      .subscribe();
   }
 
-  private setHeaderTitle(policy: Policy) {
+  private setHeaderTitle(policy: Policy): void {
     const title = policy ? PAGE_TITLES.EDIT : PAGE_TITLES.ADD;
     this.pageHeaderService.setHeaderTitle(title);
   }
 
-  private setUpForm() {
+  private setUpForm(): void {
     this.policyForm = this.formBuilder.group({
       name: ["", [Validators.required, Validators.minLength(3)]],
       age: null,
@@ -91,7 +97,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
     });
   }
 
-  private mapPolicyToForm(policy: Policy) {
+  private mapPolicyToForm(policy: Policy): any {
     return {
       name: policy.policyHolder.name,
       age: policy.policyHolder.age,
@@ -106,7 +112,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
     };
   }
 
-  private onSaveComplete() {
+  private onSaveComplete(): void {
     this.policyForm.reset();
     this.router.navigate(["/"]);
   }

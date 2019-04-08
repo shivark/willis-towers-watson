@@ -10,7 +10,7 @@ export class PageHeaderService {
 
   pageHeaderTitle$ = this.headerTitle.asObservable();
 
-  setHeaderTitle(title: string) {
+  setHeaderTitle(title: string): void {
     this.headerTitle.next(title);
   }
 }

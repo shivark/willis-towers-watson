@@ -28,24 +28,24 @@ export class PoliciesComponent implements OnInit, OnDestroy {
     private pageHeaderService: PageHeaderService,
     private policyDeleteService: PolicyDeleteService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.pageHeaderService.setHeaderTitle(PAGE_TITLES.POLICIES);
     this.getPolicies();
-    this.checkDeleteConfirmation();
+    this.deleteOnConfirmed();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.deleteSub.unsubscribe();
     this.policySub.unsubscribe();
   }
 
-  deleteClicked(id: number) {
+  deleteClicked(id: number): void {
     this.policyToDel = id;
     this.policyDeleteService.displayModal(true);
   }
 
-  checkDeleteConfirmation() {
-    return this.policyDeleteService.deleteConfirmed$
+  deleteOnConfirmed(): void {
+    this.deleteSub = this.policyDeleteService.deleteConfirmed$
       .pipe(
         filter(confirmed => confirmed),
         switchMap(() =>
@@ -53,14 +53,14 @@ export class PoliciesComponent implements OnInit, OnDestroy {
             .pipe(tap(() => this.deleteFromView(this.policies, this.policyToDel))
             )),
         catchError(() => this.errorMessage = ERROR_MESSAGES.DELETE_POLICY)
-      );
+      ).subscribe();
   }
 
-  private deleteFromView(arr: Policy[], id: number) {
+  private deleteFromView(arr: Policy[], id: number): void {
     arr.splice(arr.findIndex((p: Policy) => p.policyNumber === id), 1);
   }
 
-  private getPolicies() {
+  private getPolicies(): void {
     this.policySub = this.policyService
       .getAll()
       .subscribe(p => this.policies = p);

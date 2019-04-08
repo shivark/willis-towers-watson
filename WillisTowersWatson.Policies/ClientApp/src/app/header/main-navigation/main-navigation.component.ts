@@ -2,14 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'main-navigation',
-  templateUrl: './main-navigation.component.html',
-  styleUrls: ['./main-navigation.component.scss']
+  templateUrl: './main-navigation.component.html'
 })
-export class MainNavigationComponent implements OnInit {
+export class MainNavigationComponent { }
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}

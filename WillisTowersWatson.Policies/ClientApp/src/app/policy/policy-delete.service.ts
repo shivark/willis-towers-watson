@@ -11,11 +11,11 @@ export class PolicyDeleteService {
   displayDeleteModal$ = this.display.asObservable();
   deleteConfirmed$ = this.confirmed.asObservable();
 
-  displayModal(display: boolean) {
+  displayModal(display: boolean): void {
     this.display.next(display);
   }
 
-  confirmDelete(confirmed: boolean) {
+  confirmDelete(confirmed: boolean): void {
     this.confirmed.next(confirmed);
   }
 }

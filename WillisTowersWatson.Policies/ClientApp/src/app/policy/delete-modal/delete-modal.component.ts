@@ -15,20 +15,20 @@ export class DeleteModalComponent implements OnInit {
   constructor(private modalService: BsModalService, private policyDeleteService: PolicyDeleteService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.policyDeleteService
       .displayDeleteModal$
       .pipe(filter(d => d && true))
       .subscribe(() => this.modalRef = this.modalService.show(this.temp));
   }
 
-  confirm() {
+  confirm(): void {
     this.policyDeleteService.confirmDelete(true);
     this.modalRef.hide();
     this.policyDeleteService.displayModal(false);
   }
 
-  hide() {
+  hide(): void {
     this.modalRef.hide();
     this.policyDeleteService.confirmDelete(false);
     this.policyDeleteService.displayModal(false);

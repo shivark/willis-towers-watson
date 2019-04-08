@@ -5,15 +5,14 @@ import { PageHeaderService } from './page-header.service';
 
 @Component({
   selector: 'page-header',
-  templateUrl: './page-header.component.html',
-  styleUrls: ['./page-header.component.scss']
+  templateUrl: './page-header.component.html'
 })
 export class PageHeaderComponent implements OnInit, OnDestroy {
   title: string;
   private sub: Subscription;
   constructor(private pageHeaderService: PageHeaderService, private titleService: Title) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.sub = this.pageHeaderService.pageHeaderTitle$
       .subscribe(t => {
         this.title = t;
@@ -21,7 +20,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
 }
