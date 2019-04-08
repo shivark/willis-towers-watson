@@ -92,7 +92,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
   private setUpForm(): void {
     this.policyForm = this.formBuilder.group({
       name: ["", [Validators.required, Validators.minLength(3)]],
-      age: null,
+      age: 25,
       gender: "0"
     });
   }
