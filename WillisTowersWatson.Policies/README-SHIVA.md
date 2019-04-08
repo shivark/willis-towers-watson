@@ -1,7 +1,7 @@
 # Notes
 
 The front end Angular project has been designed to use Angular "smart and presentation" design part.
-It has two smart components "Policies" and "Add-Edit". The presentation components communicate with parents through services.
+It has two smart components "Policies" and "Add-Edit". The presentation components communicate with parents through services e.g policy-delete.service, page-header.service.
 
 
 ## Future enhancements and refactorings
