@@ -13,7 +13,7 @@ import { PolicyDeleteService } from '../policy-delete.service';
 import { PageHeaderService } from 'src/app/page-header/page-header.service';
 import { PAGE_TITLES } from 'src/constants/page-titles';
 
-fdescribe('PoliciesComponent', () => {
+describe('PoliciesComponent', () => {
   let component: PoliciesComponent;
   let fixture: ComponentFixture<PoliciesComponent>;
   let policyServiceMock: jasmine.SpyObj<PolicyService>;
